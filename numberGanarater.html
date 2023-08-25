@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Number Generator</title>
+  <style>
+    #numberContainer {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .numberBox {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 5px;
+      font-weight: bold;
+    }
+
+    .even {
+      background-color: green;
+    }
+
+    .odd {
+      background-color: yellow;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    Enter a number: <input type="number" id="userNumber" onkeyup="handleKeyPress(event)">
+    <button onclick="generateNumbers()">Enter</button>
+  </div>
+  <div id="numberContainer"></div>
+
+  <script>
+    function generateRandomNumber(max) {
+      return Math.floor(Math.random() * max) + 1;
+    }
+
+    function generateNumbers() {
+    //   let userNumber = parseInt(document.getElementById('userNumber').value);
+      const userInput = document.getElementById('userNumber')
+      const userNumber = parseInt(userInput.value)
+      const numberContainer = document.getElementById('numberContainer');
+      numberContainer.innerHTML = '';
+
+      for (let i = 1; i <= userNumber; i++) {
+        const randomNumber = generateRandomNumber(userNumber);
+        const numberBox = document.createElement('div');
+        numberBox.innerHTML = randomNumber;
+
+        if (randomNumber % 2 === 0) {
+          numberBox.classList.add('numberBox', 'even');
+        } else {
+          numberBox.classList.add('numberBox', 'odd');
+        }
+        numberContainer.appendChild(numberBox);
+      }
+    userInput.value = ''
+    }
+
+    function handleKeyPress(event) {
+      if (event.key === 'Enter') {
+        generateNumbers();
+      }
+    }
+  </script>
+</body>
+</html>
